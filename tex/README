@@ -1,0 +1,3 @@
+Required Debian packages:
+
+  python-pygments texlive-latex-extra datahouse-template-documents-latex

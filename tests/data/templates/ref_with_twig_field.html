@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tests Title</title>
+</head>
+<body>
+<h1>test</h1>
+<div class="content">
+  {% eleref myref %}
+  <p>referenced element says: {{ fields.hello }}</p>
+  {% else %}
+  <p>no element here</p>
+  {% endeleref %}
+  <p>parent element says: {{ fields.hello }}</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,59 @@
+// List of open items with dependencies, as collected by @htr and @mwa around
+// Nov 2017.
+
+digraph sc {
+  ratio="compress"
+  overlap = false;
+
+  node [fontsize="11" fontname="Arial" shape="record" bgcolour=white];
+  edge [fontsize="9" fontname="Arial" color="grey" arrowhead="open" arrowsize="0.5"];
+
+  tree_ux [label="UX: Tree\n#4065", shape=record]
+  tree_slow [label="Tree zu langsam", shape=record]
+  tree_caching [label="Tree Caching", shape=record]
+
+  tree_ux -> tree_slow
+  tree_slow -> tree_caching
+
+  ref_ele_choice [label="UX: Ref Ele auswählen", shape=record]
+  ref_ele_edit [label="UX: Ref Ele bearbeiten\n#5557, #6676", shape=record]
+
+  publish_incompr [label="Publish Prozess unverständlich\n#5311", shape=record]
+  publish_user_feedback [label="Publish Prozess: besseres User Feedback", shape=record]
+  publish_status_wrong [label="Publish Status Anzeige falsch", shape=record]
+
+  impl_undo [label="Undo implementieren", shape=record]
+  impl_dashboard [label="Dashboard implementieren", shape=record]
+  publish_incompr -> impl_dashboard
+  publish_incompr -> impl_undo
+
+  one_lang_per_version [label="Language per Version auf 1:1 umstellen", shape=record]
+  publish_incompr -> one_lang_per_version
+
+  cannot_publish [label="Publish teils nicht möglich\n", shape=record]
+  cannot_publish -> one_lang_per_version
+
+  lang_any [label="Language 'any'\n#5376", shape=record]
+  lang_any -> one_lang_per_version
+
+  trans_copy_vs_empty [label="Übersetzung von Kopie vs Leer starten", shape=record]
+
+  user_pwd_reset [label="User Password Reset", shape=record]
+  hashed_user_pwd [label="Hashed User Passwords", shape=record]
+
+  show_in_menu [label="Element in Menü anzeigen on/off", shape=record]
+
+  adming_lang_switch [label="Admin Language Switch unklar", shape=record]
+
+  multi_tab_ux [label="Multi-Tab Usability", shape=record]
+
+  add_to_empty_collection [label="Element zu leerer Collection hinzufügen\n#5158", shape=record]
+
+  froala_upgrade [label="Froala upgrade", shape=record]
+
+  slugs_per_lang [label="Slugs pro Language", shape=record]
+
+  meta_flag [label="Support für Meta Flags", shape=record]
+
+  nodesep = 3.0
+}

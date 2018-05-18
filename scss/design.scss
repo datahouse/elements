@@ -1,0 +1,43 @@
+@import "data";
+
+.elements-admin {
+  @import "reset";
+  @import "bootstrap";
+  @import "backdropfix";
+  @import "froala";
+
+  font-family: $defaultFont;
+  font-size: 16px;
+  font-weight: normal;
+
+  .error {
+    color: $colorError;
+  }
+
+  .modal-row {
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+
+  @import "login";
+  @import "adminheader";
+  @import "tree";
+}
+
+.toast-top-full-width,
+.toast-bottom-full-width {
+  text-align: center;
+}
+
+#elements-page-wrapper {
+  height: 0;
+  transition: all $animationTime ease-out $easeTime;
+  width: 100%;
+
+  &.with-admin-bar {
+    height: 55px;
+    transition: all $animationTime ease-out $easeTime;
+  }
+}
+
+@import "admincontent";

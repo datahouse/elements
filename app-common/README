@@ -1,0 +1,6 @@
+This directory contains files not directly used by elements, but which
+are useful for applications based on elements.
+
+These live under php/web so composer copies them. Applications are
+currently supposed to simply symlink the files to the appropriate
+locations.

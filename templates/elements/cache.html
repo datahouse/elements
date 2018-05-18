@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+    <title>Admin</title>
+    <base href="{{root_url}}/">
+    <meta charset="utf8">
+    {% include 'elements/stylesheets.html' %}
+</head>
+<body class="elements-admin">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-xs-12 col-sm-push-3 login">
+            <h1>Admin Cache Control</h1>
+
+            {% if msg %}
+            <p class="error">{{ msg }}</p>
+            {% endif %}
+
+            <ul id="cacheTabs" class="nav nav-tabs">
+                <li role="presentation" class="active">
+                    <a href="#tab-elements-cache" aria-controls="home"
+                       role="tab" data-toggle="tab">
+                        Elements Cache
+                    </a>
+                </li>
+                <!--
+                <li role="presentation">
+                    <a href="#tab-http-cache" aria-controls="home" role="tab" data-toggle="tab">
+                        HTTP Cache
+                    </a>
+                </li>
+                -->
+                <li role="presentation">
+                    <a href="#tab-fulltext-index" aria-controls="home"
+                       role="tab" data-toggle="tab">
+                        FTS Index
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="tab-elements-cache">
+                    <div>
+                        <label>Cache Information (APCU)</label>
+                        <table>
+                            {% for key, value in elementsCacheInfo
+                                   if key != 'cache_list' %}
+                            <tr><td>{{ key }}</td><td>{{ value }}</td></tr>
+                            {% endfor %}
+                        </table>
+
+                        <label>Cache Maintenance</label>
+                        <form action="admin/cache" method="post">
+                            <input type="hidden"
+                                   name="action" value="invalidate-elements"/>
+                            <div class="form-group">
+                                <input class="btn btn-primary" type="submit"
+                                       value="invalidate">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <!--
+                <div role="tabpanel" class="tab-pane" id="tab-http-cache">
+                    HTTP Cache not functional, yet
+                </div>
+                -->
+
+                <div role="tabpanel" class="tab-pane" id="tab-fulltext-index">
+                    <div>
+                        <label>Fulltext Search Index</label>
+                        <form action="admin/cache" method="post">
+                            <input type="hidden"
+                                   name="action" value="fts-reindex"/>
+                            <div class="form-group">
+                                <input class="btn btn-primary" type="submit"
+                                       value="reindex"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% include 'elements/javascripts.html' %}
+</body>
+</html>

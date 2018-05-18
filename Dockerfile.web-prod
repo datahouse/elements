@@ -1,0 +1,70 @@
+FROM registry.datalan.ch/datahouse/it-docker-debian-php-apache:v9
+
+ARG TERM=linux
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Use the JRE from Debian stable
+RUN apt-get update \
+  && apt-get install -y \
+      default-jre-headless \
+      coffeescript \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+# Use a snapshot of the Debian archive for reproducible builds. Note that
+# these releases feature a validity check that we need to ignore for
+# later updates (see snapshot.debian.org).
+#RUN echo "deb http://snapshot.debian.org/archive/debian/20161129T140000Z/ stretch main" \
+#  >> /etc/apt/sources.list
+RUN echo "deb http://mirror.switch.ch/ftp/mirror/debian/ stretch main" \
+  >> /etc/apt/sources.list
+
+# Use updated PHP7 stuff from Debian stretch (testing).
+RUN apt-get -o Acquire::Check-Valid-Until=false update \
+  && apt-get install -y --no-install-recommends -o Dpkg::Options::="--force-confold" \
+      php7.0 \
+      libapache2-mod-php7.0 \
+      php-gd \
+      php-pdo \
+      php-pdo-mysql \
+      php-pgsql \
+      php-sqlite3 \
+      php-yaml \
+      php-apcu \
+      php-curl \
+      ruby-sass \
+  && apt-get autoremove -y \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+# Install the newest version of the Google Closure Compiler for
+# JavaScript minimization (the version in Debian 8 did not parse
+# jQuery sources properly - newer versions do).
+RUN \
+  mkdir -p /usr/local/share/java \
+  && cd /usr/local/share/java \
+  && chmod a+r /usr/local/share/java \
+  && curl -O https://dl.google.com/closure-compiler/compiler-latest.tar.gz \
+  && tar -xzf compiler-latest.tar.gz \
+  && rm compiler-latest.tar.gz \
+  && mv closure-compiler-v*.jar closure-compiler.jar \
+  && chmod a+r closure-compiler.jar \
+  && rm -f COPYING README.md
+
+# copy php config with stuff necessary for elements
+COPY docker/50-php-settings-elements.ini /etc/php/7.0/apache2/conf.d/50-elements.ini
+
+# enable required apache modules
+RUN a2enmod cache
+RUN a2enmod cache_disk
+RUN a2enmod php7.0
+
+# prevent an annoying apache warning
+RUN echo "ServerName localhost" > /etc/apache2/conf-available/fqdn.conf \
+    && a2enconf fqdn
+
+COPY docker/web-entrypoint.sh /entrypoint.sh
+
+WORKDIR /var/www/html
+
+CMD ["/bin/bash", "/entrypoint.sh"]

@@ -1,0 +1,44 @@
+{
+    "name": "datahouse/elements",
+    "description": "basic elements for a customized CMS",
+    "license": "proprietary",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.datalan.ch/composer/"
+        }
+    ],
+    "require": {
+        "components/jquery": "2.*",
+        "components/jqueryui": "1.*",
+        "components/bootstrap": "3.*",
+
+        "datahouse/dice": "*",
+        "datahouse/database": ">=1.1",
+        "twig/twig": "1.24.*",
+        "kriswallsmith/assetic": "@stable",
+        "mrclay/minify": ">=2.3",
+        "symfony/yaml": "3.1.*",
+        "symfony/filesystem": "3.*",
+        "elasticsearch/elasticsearch": "~5.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "5.*",
+        "phpunit/php-invoker": "1.*",
+        "pdepend/pdepend": "@stable",
+        "phpmd/phpmd": "@stable",
+        "squizlabs/php_codesniffer": "2.*",
+        "sebastian/phpcpd": "@stable",
+        "datahouse/phpdox": "0.*",
+        "phploc/phploc": "@stable",
+        "datahouse/ant-helpers": "*",
+        "datahouse/standards": "2.*",
+        "datahouse/buildcollectors": "0.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Datahouse\\Elements\\": "src/",
+            "Datahouse\\Elements\\Tests\\": "tests/"
+        }
+    }
+}

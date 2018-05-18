@@ -1,0 +1,14 @@
+{
+    "name": "datahouse/elements",
+    "description": "basic elements for a customized CMS",
+    "license": "proprietary",
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https://repo.datalan.ch/composer/"
+        }
+    ],
+    "require-dev": {
+        "datahouse/ant-helpers": "*"
+    }
+}

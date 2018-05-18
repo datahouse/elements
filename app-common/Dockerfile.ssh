@@ -1,0 +1,48 @@
+FROM registry.datalan.ch/datahouse/it-docker-php-7-cli:v0-ssl
+
+ARG TERM=linux
+ARG DEBIAN_FRONTEND=noninteractive
+
+# Use the JRE from Debian stable
+RUN apt-get update \
+  && apt-get install -y \
+      default-jre-headless \
+      coffeescript \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+# Use a snapshot of the Debian archive for reproducible builds. Note that
+# these releases feature a validity check that we need to ignore for
+# later updates (see snapshot.debian.org).
+RUN echo "deb http://snapshot.debian.org/archive/debian/20161027T140000Z/ stretch main" \
+  >> /etc/apt/sources.list
+
+# Drop the hand-compiled PHP installation
+RUN rm -rf /usr/local/php
+
+# Use updated PHP7 stuff from Debian stretch (testing).
+RUN apt-get -o Acquire::Check-Valid-Until=false update \
+  && apt-get install -y --no-install-recommends \
+      php7.0-cli \
+      php-gd \
+      php-pdo \
+      php-pdo-mysql \
+      php-pgsql \
+      php-sqlite3 \
+      php-yaml \
+      php-apcu \
+      ruby-sass \
+  && apt-get autoremove -y \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+# Add packages required for the dev variant, only
+RUN apt-get -o Acquire::Check-Valid-Until=false update \
+  && apt-get install -y --no-install-recommends \
+      php-xdebug \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/*
+
+# copy php config with stuff necessary for elements
+COPY docker/50-php-settings-elements.ini /etc/php/7.0/cli/conf.d/50-elements.ini
+

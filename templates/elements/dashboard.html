@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Admin</title>
+    <base href="{{root_url}}/admin">
+    <meta charset="utf8">
+    {% include 'elements/stylesheets.html' %}
+  </head>
+  <body class="elements-admin">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12 col-sm-push-3 dashboard">
+          <h1>Overview</h1>
+          <div>..here comes a dashboard...</div>
+          <div>...meanwhile... a link to the
+            <a href="{{ root_url }}/admin/tree">tree</a>.
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include 'elements/javascripts.html' %}
+  </body>
+</html>

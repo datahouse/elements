@@ -1,0 +1,53 @@
+<div class="modal" id="metaFormModal" tabindex="-1" role="dialog" aria-labelledby="metaFormModal">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">Page Meta Info</h4>
+            </div>
+            <div class="modal-body">
+                <p class="error"></p>
+                {% if permissions['allow_metadata_url_update'] %}
+                <div class="form-group">
+                    <label>Default URL</label>
+                    <div id="metaFormModalUrlDefaults">
+                        <div class="metaFormModalUrlDefaultEntries"></div>
+                    </div>
+
+                    <label>Alias URLs</label>
+                    <p>An optional list of URLs that redirect to this page.
+                    </p>
+                    <div id="metaFormModalAliases">
+                        <div class="metaFormModalAliasEntries"></div>
+                        <span class="add">
+                            <i class="fa fa-plus" aria-hidden="true"></i>
+                            add alias
+                        </span>
+                    </div>
+                </div>
+                {% endif %}
+                {% if permissions['allow_metadata_tags_update'] %}
+                <div class="form-group">
+                    {% for fieldName, field in fields
+                           if fieldInfo[fieldName]['type'] == 'tag' %}
+                        <label class="metaFormModalFieldName"
+                            data-field-name="{{ fieldName }}"
+                            data-current-value="{{ field | raw }}">
+                            {{ fieldName }}</label>
+                        <p>Valid choices are: {{ fieldInfo[fieldName]['validChoices'] }}</p>
+                        <div class="metaFormModalTag">
+                            <input id="tag-{{ fieldName | slice(4) }}"
+                                   name="tag-{{ fieldName | slice(4) }}"
+                                   value="{{ field | raw }}"
+                                   class="form-control" />
+                        </div>
+                        <br/>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

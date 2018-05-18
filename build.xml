@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<project name="ELE" default="build">
+  <!--
+       The actual build targets have moved to subbuild.xml. This is a
+       wrapper that's independent of ant-helpers, calling composer on the
+       toplevel, but forwarding all other targets to the actual build
+       file in subbuild.xml.
+    -->
+  <condition property="root-composer-install.skip">
+    <uptodate targetfile=".stamp.root-composer-install" srcfile="composer.json" />
+  </condition>
+  <target name="root-composer-install"
+          unless="root-composer-install.skip"
+          description="Get root dependencies (ant-helpers, build colllectors etc.)">
+    <exec executable="composer">
+      <env key="COMPOSER" path="root-composer.json"/>
+      <arg value="install"/>
+      <arg value="--working-dir"/>
+      <arg path="${basedir}/"/>
+    </exec>
+    <touch file=".stamp.root-composer-install"/>
+  </target>
+
+  <macrodef name="sub">
+    <attribute name="target" default=""/>
+    <sequential>
+      <antcall target="root-composer-install"/>
+      <exec executable="ant" failonerror="true">
+        <arg value="-f"/>
+        <arg value="subbuild.xml"/>
+        <arg value="@{target}"/>
+      </exec>
+    </sequential>
+  </macrodef>
+
+  <target name="setup"><sub target="setup"/></target>
+  <target name="setup-ci"><sub target="setup-ci"/></target>
+  <target name="build"><sub target="build"/></target>
+  <target name="build-ci"><sub target="build-ci"/></target>
+  <target name="clean"><sub target="clean"/></target>
+
+  <target name="composer-update"><sub target="composer-update"/></target>
+  <target name="phpunit"><sub target="phpunit"/></target>
+  <target name="phplint"><sub target="phpunit"/></target>
+  <target name="phpdox"><sub target="phpunit"/></target>
+</project>

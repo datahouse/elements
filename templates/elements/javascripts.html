@@ -1,0 +1,14 @@
+<script type="text/javascript"><!--
+{% if permissions['admin'] %}
+{% for key, value in jsAdminData %}
+var {{ key }} = {{ value | json_encode() | raw }};
+{% endfor %}
+{% endif %}
+{% for key, value in jsUserData %}
+var {{ key }} = {{ value | json_encode() | raw }};
+{% endfor %}
+// -->
+</script>
+{% for url in javascripts %}
+<script type="text/javascript" src="{{ url }}"></script>
+{% endfor %}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Admin</title>
+    <base href="{{root_url}}/">
+    <meta charset="utf8">
+    {% include 'elements/stylesheets.html' %}
+  </head>
+  <body class="elements-admin">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-6 col-xs-12 col-sm-push-3 login">
+          <h1>Setup</h1>
+          {% if initialized and true %}
+            <ul>
+            {% for check in checks %}
+              <li>
+                {% if check['state'] %}
+                  <span style="color:green;">&#10003;</span>
+                {% else %}
+                  <span style="color:red;">&#x2717;</span>
+                {% endif %}
+                {{ check['description'] }}
+              </li>
+            {% endfor %}
+            </ul>
+
+            {% if needs_migration %}
+              <div class="form-group">
+                <form action="admin/setup" method="post">
+                  <input class="btn btn-primary" type="submit" value="Migrate">
+                </form>
+              </div>
+            {% endif %}
+          {% else %}
+          <p>The database is empty and has not been initialized, yet.</p>
+          <p>This setup routine allows to copy an initial data set and setup
+            a user <em>admin</em> with password <em>admin</em>.
+          </p>
+          <div class="form-group">
+            <form action="admin/setup" method="post">
+              <input class="btn btn-primary" type="submit" value="Setup">
+            </form>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    {% include 'elements/javascripts.html' %}
+  </body>
+</html>

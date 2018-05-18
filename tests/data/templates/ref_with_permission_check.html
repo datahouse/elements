@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tests Title</title>
+</head>
+<body>
+<h1>test</h1>
+<div class="content">
+  <!-- check permissions prior to the referenced element -->
+  {% if permissions['admin'] %}
+  parent-pre-ref: yes
+  {% else %}
+  parent-pre-ref: no
+  {% endif %}
+
+  {% eleref myref %}
+  <p>
+      <!-- check permissions for the referenced element -->
+      {% if permissions['admin'] %}
+      within-reference: yes
+      {% else %}
+      within-reference: no
+      {% endif %}
+  {% else %}
+  <p>no element here</p>
+  {% endeleref %}
+
+  <!-- check permissions again after the referenced element -->
+  {% if permissions['admin'] %}
+  parent-post-ref: yes
+  {% else %}
+  parent-post-ref: no
+  {% endif %}
+</div>
+
+</body>
+</html>

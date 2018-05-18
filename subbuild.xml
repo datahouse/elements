@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<project name="ELE" default="build">
+  <property name="builder.dockerfile" value="Dockerfile.builder"/>
+  <property name="builder.context" value="${basedir}"/>
+  <property name="builder-php.img" value="ele-builder"/>
+  <property name="builder-php.tag" value="v0"/>
+
+  <import file="ant/helpers/composer.xml"/>
+  <import file="ant/helpers/php.xml"/>
+  <import file="ant/helpers/run-within-builder.xml"/>
+
+  <target name="prepare" depends="phpprepare"/>
+  <target name="clean" depends="phpclean"/>
+
+  <target name="setup"
+          depends="prepare, composer-install"
+          description="setting up project"/>
+  <target name="setup-ci" depends="setup"/>
+
+  <target name="build"
+          depends="setup, phplint, phploc,    pdepend, phpmd,   phpcs,
+                   phpcpd,    phpunit"
+          description=""/>
+  <target name="build-ci"
+          depends="setup, phplint, phploc-ci, pdepend, phpmd-ci, phpcs-ci,
+                   phpcpd-ci, phpunit, phpdox, collect-all"/>
+
+  <!-- override the skip dependency for composer-install to account for
+       root-composer-install -->
+  <condition property="composer-install.skip">
+    <uptodate targetfile=".stamp.composer-install">
+      <srcfiles file="composer.json"/>
+      <!-- this condition ensures we run 'composer-install' again after a
+           'root-composer-install' and is useful for libraries that have only
+           a single build.xml in their top level directory. -->
+      <srcfiles dir="${basedir}" includes=".stamp.root-composer-install*"/>
+    </uptodate>
+  </condition>
+
+  <target name="collect-all">
+    <!-- Work around a limitation in the build collectors' dhbxmlcollector:
+         collecting from the top-level directory is not supported, therefore
+         we copy the logs to a temporary php/elements dir.
+    -->
+    <mkdir dir="${basedir}/php/elements/build/logs"/>
+    <copy todir="${basedir}/php/elements/build/logs">
+      <fileset dir="${basedir}/build/logs">
+        <include name="*"/>
+      </fileset>
+    </copy>
+
+    <!-- call the usual build collectors -->
+    <antcall target="collecthtml">
+      <param name="from" value="php"/>
+      <param name="what" value="build/api"/>
+      <param name="index" value="index.html"/>
+    </antcall>
+    <antcall target="collecthtml">
+      <param name="from" value="php"/>
+      <param name="what" value="build/coverage"/>
+      <param name="index" value="index.html"/>
+    </antcall>
+    <antcall target="collectxml">
+      <param name="from" value="php"/>
+      <param name="what" value="build/logs"/>
+      <param name="file" value="clover.xml"/>
+    </antcall>
+  </target>
+
+  <target name="collecthtml" description="collect html">
+    <exec executable="${basedir}/vendor/bin/dhbhtmlcollector">
+      <arg value="${from}"/>
+      <arg value="${what}"/>
+      <arg value="${index}"/>
+    </exec>
+  </target>
+  <target name="collectxml" description="collect xml">
+    <exec executable="${basedir}/vendor/bin/dhbxmlcollector">
+      <arg value="${from}"/>
+      <arg value="${what}"/>
+      <arg value="${file}"/>
+    </exec>
+  </target>
+</project>

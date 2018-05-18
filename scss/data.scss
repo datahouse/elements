@@ -1,0 +1,55 @@
+$colorPrimary: #337ab7;
+$colorPrimaryHover: #286090;
+$colorError: #cc0000;
+$colorErrorHover: #990000;
+$colorBgBorderNode: #e3e3e3;
+$colorBgNode: #f5f5f5;
+$colorBgNodeError: #EFD0D0;
+$colorBgNodeSuccess: #d0f6d0;
+$colorBgNodeDisabled: #a6a6a6;
+$colorBgNodeDisabledHover: #8c8c8c;
+$colorBgNodeEdited: #f0ad4e;
+$colorBgNodeEditedHover: #d58512;
+$colorBgNodePublished: #5cb85c;
+$colorBgNodePublishedHover: #449d44;
+$colorBgNodeBorderCollapsedHover: #999;
+$colorBgDragzone: #d6d6d6;
+$colorModalBackdrop: #000;
+
+$colorWhite: #fff;
+$colorBlack: #000;
+
+$animationTime: 0.5s;
+$easeTime: 0.1s;
+
+$defaultFont: 'Open Sans', sans-serif;
+
+.saved {
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+  animation-iteration-count: 1;
+}
+
+.saved-success > div {     
+  animation: savedSuccess 5s;
+  @extend .saved;
+}
+
+.saved-error > div {     
+  animation: savedError 5s;
+  @extend .saved;
+}
+
+@keyframes savedSuccess {
+  0% { background-color: $colorBgNode; }
+  20% { background-color: $colorBgNodeSuccess; }
+  50% { background-color: $colorBgNodeSuccess; }
+  100% { background-color: $colorBgNode; }
+}
+
+@keyframes savedError {
+  0% { background-color: $colorBgNode; }
+  20% { background-color: $colorBgNodeError; }
+  50% { background-color: $colorBgNodeError; }
+  100% { background-color: $colorBgNode; }
+}

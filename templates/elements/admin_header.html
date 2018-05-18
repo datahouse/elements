@@ -1,0 +1,65 @@
+{% if permissions['admin'] %}
+<div id="elements-page-wrapper" class="with-admin-bar"></div>
+<div class="elements-admin">
+    {% if jsAdminData['GLOBAL_OPTIONS']['ENABLE_METADATA_UPDATE'] %}
+      {% include 'elements/metaDialog.html' %}
+    {% endif %}
+    {% if permissions['allow_template_switch'] and jsAdminData['GLOBAL_OPTIONS']['ENABLE_TEMPLATE_SWITCH'] %}
+      {% include 'elements/templateDialog.html' %}
+    {% endif %}
+    {% include 'elements/statusDialog.html' %}
+    <header class="admin-header-element clearfix">
+        <nav class="main-nav">
+            <ul>
+                <li>
+                    <a href="{{ root_url }}/admin/tree">
+                        <!--
+                        The browser already has a back button, no reason
+                        to add another one. Besides, this may not match where
+                        an admin was coming from at all...
+                        -->
+                        <i class="fa fa-sitemap" aria-hidden="true"></i>
+                        tree
+                    </a>
+                </li>
+                {% if jsAdminData['GLOBAL_OPTIONS']['ENABLE_METADATA_UPDATE'] %}
+                <li>
+                    <span class="link" data-toggle="modal" data-target="#metaFormModal">Meta</span>
+                </li>
+                {% endif %}
+                <!--
+                <li>
+                    <span class="link" data-toggle="modal" data-target="#historyModal">History</span>
+                </li>
+                -->
+                {% if permissions['allow_template_switch'] and jsAdminData['GLOBAL_OPTIONS']['ENABLE_TEMPLATE_SWITCH'] %}
+                <li>
+                    <span class="link" data-toggle="modal" data-target="#templateFormModal">Template</span>
+                </li>
+                {% endif %}
+                <li>
+                  <label>status:</label>
+                    <!--
+                  <span id="pageState" class="state {{ page_element_state_class }}"
+                        data-toggle="modal" data-target="#statusFormModal">
+                    -->
+                    <!-- FIXME: still using the onclick variant -->
+                  <span id="pageState" class="state {{ page_element_state_class }}">
+                    {{ jsAdminData['PAGE_ELEMENT_STATE'] }}
+                  </span>
+                </li>
+                <li>
+                    <label>language:</label>
+                    <span id="editLanguage">{{ jsAdminData['EDIT_LANGUAGE'] }}</span>
+                </li>
+            </ul>
+            <i class="fa minimize fa-arrow-up" aria-hidden="true"></i>
+        </nav>
+        <nav class="second-nav">
+            <ul>
+                <li><span class="link logout">Logout</span></li>
+            </ul>
+        </nav>
+    </header>
+</div>
+{% endif %}

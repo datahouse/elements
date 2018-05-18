@@ -1,0 +1,68 @@
+<footer class="grid">
+    <nav class="footer-menu">
+        <div class="col-1-2">
+            <ul>
+                <li><a href="dienstleistung#app"><i
+                        class="fa fa-arrow-circle-up"></i> Seitenanfang</a>
+                </li>
+                <li class="hide-on-desktop">|</li>
+                <li class="hide-on-mobile"><a
+                        href="javascript:window.print()"><i
+                        class="fa fa-print"></i> Seite drucken</a></li>
+                <li class="pointer" id="share_link"><a><i
+                        class="fa fa-external-link"></i> Seite
+                    weiterempfehlen</a>
+
+                    <div id="share" class="hidden">
+                        <div class="row">
+                            <p>Seite weiterempfehlen<i
+                                    class="fa fa-times-circle"
+                                    id="close_share"></i></p>
+                        </div>
+                        <form id="share_form">
+                            <div class="form-row">
+                                <label for="from_address">Ihr
+                                    Name</label>
+                                <input name="from_address"
+                                       id="from_address" type="text"/>
+                            </div>
+                            <div class="form-row">
+                                <label for="to_address">Empfänger
+                                    (E-Mail)*</label>
+                                <input name="to_address" id="to_address"
+                                       type="text"/>
+                            </div>
+                            <div class="form-row">
+                                <label for="text">Kommentar</label>
+                                        <textarea name="text" id="text"
+                                                  cols="50"
+                                                  rows="10"></textarea>
+                            </div>
+                            <div class="form-row share_err">
+                                <p id="share_err" class="hidden">Bitte
+                                    geben Sie eine gültige
+                                    E-Mail-Adresse an.</p>
+                            </div>
+                            <div class="form-row button">
+                                <input type="hidden" name="share_form"
+                                       value="share_form">
+                                <input id="submit_share" type="submit"
+                                       value="Empfehlung senden"/>
+                            </div>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="col-1-2">
+            <ul class="push-right">
+                <li><a href="sitemap"
+                >Sitemap</a></li>
+                <li class="hide-on-desktop">|</li>
+                <li><a href="disclaimer"
+                >Disclaimer</a></li>
+                <li>© 2016 Datahouse AG</li>
+            </ul>
+        </div>
+    </nav>
+</footer>

@@ -1,0 +1,12 @@
+type: collection
+parent: 471eb91bd28ec1ae26563952d6b5da42720a607b
+versions:
+  1:
+    children:
+      - 54fd1711209fb1c0781092374132c66e79e2241b
+      - c66be7210915f39e91456fc2eac9441012a0a3ea
+      - e9c5d7db93a1c17d45c5820daf458224bfa7a725
+    state: published
+    languages:
+      en:
+        name: "parent element for all test snippets"

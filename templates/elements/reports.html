@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+<head>
+    <title>Admin</title>
+    <meta charset="utf8">
+    {% include 'elements/stylesheets.html' %}
+</head>
+<body class="elements-admin">
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-xs-12 col-sm-push-3">
+            <h1>Reports</h1>
+            <p>
+              <ul>
+                <a href="reports?type=linkedImages">linked images</a>
+                <a href="reports?type=missingImages">missing images</a>
+                <a href="reports?type=linkedBlobs">linked blobs</a>
+                <a href="reports?type=missingBlobs">missing blobs</a>
+                <a href="reports?type=externalLinks">external links</a>
+                <a href="reports?type=danglingLinks">dangling links</a>
+                <a href="reports?type=missingElements">missing elements</a>
+              </ul>
+            </p>
+            {% if type %}
+            <h2>{{ type }}</h2>
+            <ul>
+            {% for elementInfo in elementInfo %}
+            <li>
+              <label>{{ elementInfo[1] }}</label>
+              <p><a href="{{ elementInfo[0] }}">{{ elementInfo[0] }}</a>
+                {% for language, perLangInfo in elementInfo[2] %}
+                  {% for key, values in perLangInfo %}
+                    {# I'm sorry for everybody who reads this code #}
+                    <h4>{{ language }}: {{ key }}</h4>
+                    {% for value in values %}
+                      <pre>{{ value }}</pre>
+                    {% endfor %}
+                  {% endfor %}
+                {% endfor %}
+              </p>
+            </li>
+            {% else %}
+              <p>none</p>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% include 'elements/javascripts.html' %}
+</body>
+</html>

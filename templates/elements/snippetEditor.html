@@ -1,0 +1,24 @@
+<!doctype html>
+<html>
+<head>
+    <title>Admin</title>
+    <base href="{{root_url}}/admin">
+    <meta charset="utf8">
+    {% include 'elements/stylesheets.html' %}
+</head>
+<body class="elements-admin">
+{% include 'elements/admin_header.html' %}
+<h1>Snippet Editor</h1>
+<div>
+    {% for fieldName, field in fields
+        if fieldName != 'name' and
+              fieldInfo[fieldName]['type'] in ['text', 'image', 'meta'] %}
+    <div class="snippetField">
+      <label>{{ fieldName }}</label>
+      {% elefield __dynamic fieldname=fieldName class="snippetFieldEditor" %}
+    </div>
+    {% endfor %}
+</div>
+{% include 'elements/javascripts.html' %}
+</body>
+</html>

@@ -1,0 +1,255 @@
+\documentclass[table]{scrartcl}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{acro}
+\usepackage{articledh}
+\usepackage{courier}
+\usepackage{minted}
+\usepackage{tcolorbox}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage[]{hyperref}
+
+\hypersetup{
+  pdftitle={Elements - Documentation},
+  pdfauthor={Datahouse AG},
+  pdfcreator={Datahouse AG},
+  hidelinks=true
+}
+
+\person{Markus Wanner\\markus.wanner@datahouse.ch}
+
+\acsetup{first-style=short}
+\DeclareAcronym{ajax}{
+  short = AJAX,
+  long  = Asynchronous JavaScript and XML,
+  class = abbrev
+}
+
+\DeclareAcronym{api}{
+  short = API,
+  long  = Application Programming Interface,
+  class = abbrev
+}
+
+\DeclareAcronym{cms} {
+  short = CMS,
+  long = Content Management System,
+  class = abbrev
+}
+
+\DeclareAcronym{http}{
+  short = HTTP,
+  long  = Hypertext Transfer Protocol,
+  class = abbrev
+}
+
+\DeclareAcronym{ide} {
+  short = IDE,
+  long = Integrated Development Environment,
+  class = abbrev
+}
+
+\DeclareAcronym{pac} {
+  short = PAC,
+  long = Presentation Abstraction Control,
+  class = abbrev
+}
+
+\DeclareAcronym{php} {
+  short = PHP,
+  long = PHP,
+  class = abbrev
+}
+
+\DeclareAcronym{json}{
+  short = JSON,
+  long  = JavaScript Object Notation,
+  class = abbrev
+}
+
+\DeclareAcronym{rest}{
+  short = REST,
+  long  = Representational State Transfer,
+  class = abbrev
+}
+
+\DeclareAcronym{yaml}{
+  short = YAML,
+  long  = YAML Ain't Markup Language,
+  class = abbrev
+}
+
+\DeclareAcronym{mvc}{
+  short = MVC,
+  long  = Model View Controller,
+  class = abbrev
+}
+
+\newcommand{\code}[1]{\texttt{#1}}
+
+% styling for the json examples
+\tcbuselibrary{minted,skins}
+\newtcblisting{jsonexample}{
+  listing engine=minted,
+  colback=gray!10,
+  boxrule=0pt,
+  listing only,
+  minted style=friendly,
+  minted language=javascript,
+  minted options={linenos=true,texcl=true},
+  left=7mm
+}
+
+\begin{document}
+
+\doctitle{Elements - Documentation}
+
+\section{Introduction}
+\subsection{Goals and Design Decisions}
+Elements is intended to be a building block for a highly customizable
+Content Management System (\ac{cms}), available in the form of a
+\ac{php} library ready to be embedded in a web application.
+
+It is designed to be database agnostic and has very little
+requirements on the underlying data storage. By design, a key-value
+store or even a file-system should be sufficient. Features offered by
+(and usually implemented in) the database (like triggers, constraints
+and indices) therefore had to be implemented in Elements, where
+needed.
+
+User content is stored in elements, which in turn are organized in a
+tree. Every user-visible page is an element, but then there are other
+types of elements like snippets and collections. Part of the tree
+usually mirrors the sitemap or page structure of the website to
+manage. Other parts of the tree may contain additional content
+(usually snippets) which may be referenced by a page or other
+syelements. Multiple pages may point to a single snippet, so this allows
+repetitive content to be managed at a single place. Examples are
+contact persons, header or footer elements or a list of news needs to
+be displayed in different forms on multiple pages.
+
+Another early design decision was to use Froala for comfortable
+in-line content editing in the browser. This is a third-party
+component written in JavaScript running directly on the visitor's
+browser. This in turn also led to the decision to use an implicit
+(background) auto-save mechanism.
+
+\subsection{Current State}
+Not all of the original ideas and concepts have been implemented, and
+this shows in the projects using Elements. This document intends to
+describe the concepts and ideas behind. Whenever an idea or concept is
+implemented only partially or not at all, this should be mentioned.
+
+\section{Overview}
+\subsection{Requirements}
+Elements mainly consists of a \ac{php} library that can be included
+via composer. It also offers a Dockerfile that's currently copied via
+a strange ant helper target that must be included from an it-build
+project. See existing applications WWP and WWW for how to setup ant.
+
+At least version 7 of PHP is required. The docker image takes care of
+that, but you might need to adjust your ac{ide}.
+
+Froala is embedded in Elements and ships with it.
+
+\section{Building Blocks}
+This section describes the building blocks of Elements. They are
+grouped according to the \ac{pac} concept, which is somewhat similar
+to \ac{mvc}, but cleaner in that the controller clearly is in between
+the presentation and abstraction layer. The latter two must not
+directly communicate with each other.
+
+\subsection{Presentation}
+
+\subsubsection{Twig Templates}
+Elements uses Twig to combine data from the controller with actual
+markup. Twig in turn defines a few commands that extend HTML, but the
+Twig template is very close to the effectively rendered document.
+
+\subsubsection{Page Definitions}
+The page definition in a \ac{php} class representing the actual
+template the user (or to be more specific: the Elements application
+admin) can choose from. It links the HTML-like Twig template with the
+\ac{php} world and provides additional information for Elements, like
+what are editable fields, what other (types of) elements can be
+referenced, and defines the sub-elements that can possibly be added.
+
+\subsection{Abstraction}
+
+\subsubsection{Storage Adapter}
+Elements is designed to work with multiple storage adapters, which
+provide a common interface to whatever storage engine is used
+underneath. They all implement the common \code{IStorageAdapter}
+interface. Only one storage adapter can be used at a time.
+
+The choice is pretty simple at the moment, as only the
+\code{YamlAdapter} is fully implemented. This is a plain file-system
+based storage adapter using \ac{yaml} to structure its data in files.
+
+An \code{SqliteAdapter} is partially implemented as well and is used
+in certain unit tests. However, it's not complete and no deployed
+application ever used it up until now.
+
+\subsubsection{Elements Cache}
+In between the storage adapter and the controllers sits a cache layer
+for improved performance. This should be considered part of the
+abstraction. Elements takes care of invalidating entries in this cache
+in case of modifications via Elements itself If an external component
+or script changes the underlying storage, this cache needs to be
+invalidated manually or via a corresponding API call (see method
+\code{recreateCacheData} of the storage adapter). When logged in as an
+admin, the URL /admin/cache provides some statistics and offers the
+option to invalidate this cache.
+
+\subsubsection{Storage Migrator}
+Actually a somewhat separate tool, invoked only via the admin
+front-end, this component takes care of migrating existing data to a
+new format, should the storage format of Elements itself
+change. Please visit /admin/setup to perform storage migrations, if
+necessary.
+
+\subsection{Control}
+
+\subsection{Authentication Handler}
+The authentication handler takes care of checking passwords, loading
+session data and logging in or out a user. It is extensible by the
+application and basically returns a User object for Elements to work
+with.
+
+This user is passed on to the Authorization Handler for permission
+checks and may be referenced from elements to provide a change
+history.
+
+\subsection{Authorization Handler}
+Given a User, an Element and a right (the right to view or to modify,
+for example), the authorization handler decides which versions of the
+given Element are visible or may be modified.
+
+This may well include multiple versions, either featuring content in
+different languages, in different states (editing, published) or even
+historic versions. The authorization handler is supposed to return all
+versions the user is granted the given right to.
+
+Ideally, this Authorization Handler is the only component in the
+entire system that cares about access permissions. An application may
+well extend this handler and introduce new rights and
+permissions. Elements itself only defines two hard-coded rights:
+``view'' and ``modify''.
+
+For each page visit, the authorization handler will be called at least
+once. If the page includes references to other elements, it will
+additionally be invoked once per referenced element.
+
+\subsection{Content Selector}
+Given a set of authorized elements possibly including different
+languages as well as older versions, the content selector determines
+the best variant or version of the element to show. In \ac{http}
+parlance, this is often termed ``content negotiation''. However, in
+Elements, the Content Selector additionally selects the newest
+version to display.
+
+Again, this selector can be overridden by the application. In
+practice, the default selector usually is sufficient.
+
+\end{document}

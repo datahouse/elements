@@ -1,0 +1,10 @@
+type: snippet
+parent: 0ad052dd9f32405521e43c6ebdc52f5a025493b2
+versions:
+  1:
+    state: published
+    definition: ExampleElementDefinition
+    languages:
+      en:
+        title: "test snippet for inclusion as a contact"
+        contents: "Mickey Mouse"

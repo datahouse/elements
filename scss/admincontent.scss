@@ -1,0 +1,88 @@
+@import "data";
+
+// A default hover effect on referenced elements, shows a dark border around
+// the referenced element.
+.elements__selectable {
+  transition: all 0.4s ease;
+
+  &:hover {
+    -webkit-box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, .75);
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, .75);
+  }
+}
+
+// A hover variant that works better on dark backgrounds.
+.elements__selectable.on-dark {
+  &:hover {
+    -webkit-box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, .75);
+    box-shadow: 0px 0px 10px 5px rgba(255, 255, 255, .75);
+  }
+}
+
+.elements__selected {
+}
+
+.elements__inactive {
+  display: none;
+}
+
+// A plus button to appear on the lower right corner of lists of referenced
+// elements.
+
+// FIXME: we might need a variant for dark backgrounds as well.
+.elements__admin.elements__add-button {
+  cursor: pointer;
+  position: relative;
+
+  &:after {
+    background-color: #FFFFFF;
+    border: 2px solid #000000;
+    border-radius: 10px;
+    color: #000000;
+    content: "+";
+    padding: 3px 7px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+  }
+}
+
+// Admin panel with buttons for a sub or referenced element.
+div.elements__admin.elements__panel {
+  position: relative;
+}
+
+div.elements__panel .elements__buttons {
+  position: absolute;
+  left: 5px;
+  display: block;
+  z-index: 2;
+}
+
+div.elements__panel .elements__buttons div.elements__btn {
+  display: inline;
+  cursor: pointer;
+  background-color: #FFFFFF;
+  border: 2px solid #000000;
+  border-radius: 10px;
+  color: #000000;
+  padding: 3px 7px;
+  margin: 3px 4px;
+  text-align: center;
+}
+
+.on-dark div.elements__panel .elements__buttons div.elements__btn {
+  background-color: #000000;
+  border-color: #ffffff;
+  color: #ffffff;
+}
+
+div.snippetField {
+  padding: 20px 20px;
+}
+
+.snippetField div.snippetFieldEditor {
+  background-color: #f8f8f8;
+  padding: 4px;
+}

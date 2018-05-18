@@ -1,0 +1,214 @@
+@import "data";
+
+.admin-header-tree, .admin-header-element {
+  select.form-control {
+    -webkit-appearance: menulist;
+    -moz-appearance: menulist;
+    appearance: menulist;
+  }
+  
+  .link {
+    color: $colorPrimary;
+    cursor: pointer;
+
+    &:hover {
+      color: $colorPrimaryHover;
+      text-decoration: underline;
+    }
+  }
+
+  label {
+    font-weight: menulist;
+  }
+
+  #editLanguage {
+    font-weight: bold;
+  }
+
+  nav {
+    float: left;
+
+    ul {
+      li {
+        display: inline-block;
+        margin-left: 20px;
+      }
+
+      &.dropdown-menu {
+        li {
+          margin-left: 0;
+        }
+      }
+    }
+  }
+
+  nav, ol, ul, a {
+    font-family: $defaultFont;
+    font-size: 16px;
+    font-weight: menulist;
+  }
+
+  .main-nav {
+    float: left;
+  }
+
+  .second-nav {
+    float: right;
+    margin-right: 50px;
+  }
+
+  .state {
+    cursor: pointer;
+    font-weight: bold;
+  }
+}
+
+.admin-header-tree {
+  background-color: $colorBgNode;
+  border-bottom: 3px solid $colorBgBorderNode;
+  font-size: 16px;
+  height: 55px;
+  line-height: 50px;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+
+  .navbar-right {
+    margin-right: 20px;
+  }
+
+  .head {
+    font-weight: bold;
+  }
+}
+
+.admin-header-element {
+  background-color: $colorBgNode;
+  border-bottom: 3px solid $colorBgBorderNode;
+  font-family: $defaultFont;
+  font-size: 16px;
+  font-weight: normal;
+  height: 55px;
+  line-height: 50px;
+  position: fixed;
+  right: 0;
+  transition: all $animationTime ease-out $easeTime;
+  top: 0;
+  width: 100%;
+  z-index: 999;
+
+  .minimize {
+    color: $colorPrimary;
+    cursor: pointer;
+    font-size: 20px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transform: rotate(45deg);
+
+    &:hover {
+      color: $colorPrimaryHover;
+    }
+  }
+
+  &::after {
+    content: '';
+    opacity: 0;
+    border: 0 solid $colorBgNode;
+
+  }
+
+  &.tiny {
+    height: 0;
+    width: 0;
+
+    transition: all $animationTime ease-out $easeTime;
+    
+    &::before,
+    &::after {
+      border-color: transparent;
+      border-style: solid;
+      content: '';
+      position: fixed;
+      right: 0;
+      top: 0;
+      z-index: 1001;
+    }
+
+    &::after {
+      border-width: 25px;
+      border-right-color: $colorPrimary;
+      border-top-color: $colorPrimary;
+      opacity: 1;
+
+      transition: all $animationTime ease-out $easeTime;
+    }
+
+    nav {
+      display: none;
+    }
+  }
+}
+
+.modal {
+  select.form-control {
+    -webkit-appearance: menulist;
+    -moz-appearance: menulist;
+    appearance: menulist;
+  }
+
+  #metaFormModalUrlDefaults .metaFormModalUrlDefaultEntries,
+  #metaFormModalAliases .metaFormModalAliasEntries {
+    margin-bottom: 5px;
+    .url-error {
+      color: red;
+      font-size: 80%;
+      margin-left: 7px;
+
+    }
+    input.url {
+      margin-left: 7px;
+      display: inline-block;
+      width: 246px;
+    }
+    label {
+      margin-left: 7px;
+      font-weight: normal;
+      width: 40px;
+    }
+  }
+
+  #metaFormModalAliases {
+    .metaFormModalAliasEntries {
+      i.remove {
+        color: #cc0000;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 25px;
+        margin-left: 10px;
+      }
+    }
+
+    span.add {
+      cursor: pointer;
+      display: inline-block;
+      margin-top: 15px;
+
+      i {
+        color: #008000;
+        font-size: 20px;
+        margin-right: 5px;
+      }
+    }
+  }
+}
+
+.tab-pane {
+  background-color: #fff;
+  padding: 20px;
+}
+
+.tab-pane label {
+  margin-top: 10px;
+}

@@ -1,0 +1,7 @@
+version: 1
+name: lib-dh-php-elements
+
+migrations:
+  -
+    hash: c794835ebafb78e0b48e78689e31b976046b9192
+    path: schema/init.sql

@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Admin</title>
+    <base href="{{root_url}}/admin">
+    <meta charset="utf8">
+    {% include 'elements/stylesheets.html' %}
+  </head>
+  <body class="elements-admin">
+    <header class="clearfix admin-header-tree">
+      <nav>
+        <ul>
+          <li class="head"><a href="{{root_url}}/admin/">Admin Pages</a></li>
+          <li>
+            <label>language:</label>
+            <span id="editLanguage">{{ jsAdminData['EDIT_LANGUAGE'] }}</span>
+          </li>
+        </ul>
+      </nav> 
+      <nav class="navbar-right">
+        <ul>
+          <li><span class="link logout">Logout</span></li>
+        </ul>
+      </nav>
+    </header>
+    <div class="tree container-fluid"></div>
+    <!-- Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Remove Node</h4>
+          </div>
+          <div class="modal-body">
+            Are you sure to delete this node?
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button id="delete-modal-yes" type="button" class="btn btn-danger">YES</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishModal">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Publish Node</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="from">From</label>
+              <input class="form-control" id="from" type="text"/>
+            </div>
+            <div class="form-group">
+              <label for="to">To</label>
+              <input class="form-control" id="to" type="text"/>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-success">Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% include 'elements/javascripts.html' %}
+  </body>
+</html>

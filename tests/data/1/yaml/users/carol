@@ -1,0 +1,7 @@
+groups: [publishers]
+attributes:
+  email: carol@datahouse.ch
+secret:
+  type: salted-sha256
+  salt: e57bdd52eedfa73529e7ab1cc21dabbae4b3bebe1d163fedf6c3b9972d538901
+  hash: 10ad5d8a1d4057e9a1302b42780df4586cfa2f5297f8f60af7a771d3f70d0f61

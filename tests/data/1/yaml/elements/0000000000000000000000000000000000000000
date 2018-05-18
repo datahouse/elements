@@ -1,0 +1,10 @@
+---
+type: root
+versions:
+  '1':
+    state: published
+    languages:
+      en:
+        name: Root
+    children:
+      - 471eb91bd28ec1ae26563952d6b5da42720a607b

@@ -1,0 +1,17 @@
+type: page
+parent: 471eb91bd28ec1ae26563952d6b5da42720a607b
+versions:
+  1:
+    definition: Article
+    state: editing
+    slugs:
+      - { url: 'subpage', language: 'en', default: true }
+      - { url: 'unterseite', language: 'de', default: true }
+      - { url: '/redirect', language: 'en' }
+    languages:
+      en:
+        title: "new sub page"
+        contents: "some more text"
+      de:
+        title: "neue Unterseite"
+        contents: "etwas weiterer Text"

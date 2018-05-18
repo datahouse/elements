@@ -1,0 +1,268 @@
+@import "data";
+
+.tree {
+  margin-top: 100px;
+
+  .error {
+    color: $colorError;
+  }
+
+  .form-inline {
+    
+    .error {
+      display: inline-block;
+      margin-left: 40px;
+    }
+  }
+
+  .disclose {
+    .fa-chevron-down {
+      display: none;
+    }
+
+    .fa-chevron-right {
+      display: inline-block;
+    }
+  }
+
+  .node-disabled,
+  .node-edited,
+  .node-published {
+    position: relative;
+    
+    .language-name {
+      color: $colorBlack;
+      font-size: 14px;
+      left: 13px;
+      position: absolute;
+      top: 10px;
+    } 
+  }
+
+  .node-disabled {
+    color: $colorBgNodeDisabled;
+
+    &:hover {
+      color: $colorBgNodeDisabledHover;
+    }
+  }
+
+  .node-edited {
+    color: $colorBgNodeEdited;
+
+    &:hover {
+      color: $colorBgNodeEditedHover;
+    }
+  }
+
+  .node-published {
+    color: $colorBgNodePublished;
+
+   &:hover {
+      color: $colorBgNodePublishedHover;
+    }
+  }
+
+  .item {
+    position: relative;
+    
+    &:hover {
+      background-color: $colorBgBorderNode !important;
+      border-bottom-color: $colorBgBorderNode !important;
+    }
+    
+    span.marker {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      &::before,
+      &::after {
+        border-color: transparent;
+        border-style: solid;
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
+      &::after {
+        border-width: 10px;
+        border-radius: 4px;
+        border-left-color: $colorPrimary;
+        border-top-color: $colorPrimary;
+      }
+    }
+  }
+
+  > .sortable.list-grp > .list-grp-item {
+    padding-left: 0;
+  }
+
+  .placeholder {
+    height: 75px;
+    outline: 1px dashed $colorPrimary;
+  }
+
+  // TODO nesting li correct
+
+  li.has-children {
+    .list-grp {
+      .placeholder {
+        margin-left: 20px;
+      }
+    }
+  }
+
+  li.expanded { 
+    .disclose {
+      .fa-chevron-down {
+        display: inline-block;
+      }
+
+      .fa-chevron-right {
+        display: none;
+      }
+    }
+  }
+
+  li.collapsed {
+    .disclose {
+      .fa-chevron-down {
+        display: none;
+      }
+
+      .fa-chevron-right {
+        display: inline-block;
+      }
+    }
+
+    > ol {
+      display: none;
+    }
+  }
+
+  li.leaf {
+    .disclose {
+      visibility: hidden;
+    }
+  }
+
+  li.collapsed.dd-hover div {
+    border-color: $colorBgNodeBorderCollapsedHover;
+  }
+
+  .list-grp {
+
+    .list-grp-item {
+      padding-left: 20px;
+
+      &.list-new-page {
+        > div {
+          padding-left: 100px;
+        }
+      }
+
+      &.dd-hover {
+        > div {
+          background-color: $colorPrimary;
+          border-bottom: 3px solid $colorPrimaryHover;
+          color: $colorWhite;
+
+          a {
+            color: $colorWhite;
+          }
+        }
+      }
+
+      > div {
+        background-color: $colorBgNode;
+        border-bottom: 3px solid $colorBgBorderNode;
+        border-radius: 4px;
+        height: 75px;
+        margin: 5px 0;
+        padding: 20px 10px 20px 45px;
+
+        > div {
+          height: 32px;
+          line-height: 32px;
+
+          &.dragzone {
+            background-color: $colorBgDragzone;
+            border-top-left-radius: 4px;
+            border-bottom-left-radius: 4px;
+            left: 0;
+            height: 75px;
+            padding: 20px 5px;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            vertical-align: middle;
+            width: 40px;
+
+            img {
+              cursor: move;
+            }
+          }
+        }
+
+        .hide {
+          display: none;
+        }
+
+        .node-delete {
+          color: $colorError;
+
+          &:hover {
+            color: $colorErrorHover;
+          }
+        }
+
+        .node-edit-form {
+          display: inline-block;
+          margin-left: 22px;
+        }
+
+        .disclose, .title {
+          display: inline-block;
+        }
+
+        .disclose {
+          font-size: 20px;
+          height: 18px;
+          width: 20px;
+        }
+
+        i {
+          cursor: pointer;
+        } 
+
+        .title {
+          margin-left: 20px;
+
+          a {
+            margin-right: 20px;
+          }
+        }
+
+        .action-buttons {
+          text-align: right;
+
+          .dropdown {
+            display: inline-block;
+
+            .dropdown-menu {
+              right: 0;
+              left: auto;
+            }
+          }
+
+          i.fa {
+            margin-left: 10px;
+            font-size: 25px;
+          } 
+        }
+      }
+    }
+  }
+}

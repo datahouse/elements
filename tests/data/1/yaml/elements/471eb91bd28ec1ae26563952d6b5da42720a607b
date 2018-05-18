@@ -1,0 +1,47 @@
+---
+type: page
+permissions:
+  allow:
+    editors: [edit]
+    publishers: [publish]
+parent: "0000000000000000000000000000000000000000"
+versions:
+  1:
+    definition: Article
+    state: published
+    children:
+      - ae51ff67d4e62ae99cce9f4710e5b55c703625ad
+      - 5a8ca84c7d4d9b055f05c55b1f707f223979d387
+      - 0ad052dd9f32405521e43c6ebdc52f5a025493b2
+    slugs:
+      - { url: '/', language: 'en', default: true}
+      - { url: '/', language: 'de', default: true}
+      - { url: '/example', language: 'en' }
+      - { url: '/Alpha%20and%20Omega', language: 'en', deprecated: true }
+      - { url: '/dienstleistungen', language: 'de' }
+    languages:
+      de:
+        title: "Start"
+        contents: "deutsches blah blah blupp blupp"
+      en:
+        title: "Home"
+        contents: "english lorem ipsum idolor"
+  2:
+    definition: Article
+    state: editing
+    children:
+      - ae51ff67d4e62ae99cce9f4710e5b55c703625ad
+      - 5a8ca84c7d4d9b055f05c55b1f707f223979d387
+      - 0ad052dd9f32405521e43c6ebdc52f5a025493b2
+    links:
+      myLink: 54fd1711209fb1c0781092374132c66e79e2241b
+    slugs:
+      - { url: '/', language: 'en', default: true}
+      - { url: '/', language: 'de', default: true}
+      - { url: '/example', language: 'en' }
+      - { url: '/Alpha%20and%20Omega', language: 'en', deprecated: true }
+      - { url: '/dienstleistungen', language: 'de' }
+    languages:
+      en:
+        title: "Home"
+        contents: "new english contents being edited english lorem ipsum idolor"

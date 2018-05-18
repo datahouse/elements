@@ -1,0 +1,46 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "b148d438f0389c9bd86a75b8e5eb589f",
+    "content-hash": "6c42a02600eaa623c541e1dbea7a2af7",
+    "packages": [],
+    "packages-dev": [
+        {
+            "name": "datahouse/ant-helpers",
+            "version": "v0.3.3",
+            "source": {
+                "type": "git",
+                "url": "git:lib-dh-ant-helpers",
+                "reference": "c3503d2f18fb96af50f529cf77f76e3f32969666"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://repo.datalan.ch/composer//dist/datahouse-ant-helpers-v0.3.3-1a6474.zip",
+                "reference": "c3503d2f18fb96af50f529cf77f76e3f32969666",
+                "shasum": "23c59bd162a633703911edbb1c2b356aa15629eb"
+            },
+            "bin": [
+                "ant-php-lint-wrapper.sh",
+                "builder-env.sh",
+                "docker-push-if-not-exits.sh",
+                "run-within-builder.sh"
+            ],
+            "type": "library",
+            "license": [
+                "proprietary"
+            ],
+            "description": "Misc. ANT helpers and shortcuts which are centrally organized. This helps to deduplicate those fragments in the various project repos.",
+            "time": "2017-06-16 07:09:44"
+        }
+    ],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}

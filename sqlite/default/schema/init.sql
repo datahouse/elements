@@ -1,0 +1,24 @@
+CREATE TABLE users (
+  id TEXT PRIMARY KEY,
+  data TEXT NOT NULL
+);
+
+CREATE TABLE elements (
+  id TEXT PRIMARY KEY,
+  data TEXT NOT NULL
+);
+
+CREATE TABLE undolog (
+  xid TEXT PRIMARY KEY,
+  data TEXT NOT NULL
+);
+
+CREATE TABLE filemeta (
+  id TEXT PRIMARY KEY,
+  data TEXT NOT NULL
+);
+
+CREATE TABLE meta (
+  id TEXT PRIMARY KEY,
+  data TEXT NOT NULL
+);
