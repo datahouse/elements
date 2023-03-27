@@ -15,8 +15,6 @@ Elements mainly consists of a PHP library that can be included via composer.
 
 At least version 7 of PHP is required. The docker image takes care of that, but you might need to manually adjust your IDE.
 
-The [composer file](https://github.com/datahouse/elements/blob/main/composer.json) specifies the project properties and dependencies.
-
 To include the Elements library of Datahouse AG, add the github repository to your project's `composer.json` in the `require` key.
 
 ```
