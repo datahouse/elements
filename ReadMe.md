@@ -11,34 +11,38 @@ Keyfeatures:
 * Multi-Linguality
 
 ## Installation & Usage
-Elements selbst ist eine Library und bietet nicht selbst einen Webservice an. Siehe stattdessen die folgenden Beispielprojekte, die Elements nutzen: WWP und WWW (branch elementarization).
 
-Während der Entwicklung von Elements selbst macht es mehr Sinn, diese Library als Symlink einzubinden. Sowohl für WWP wie auch WWW ist das momentan so implementiert. Aufsetzen und starten der entsprechenden Container ist wie folgt möglich:
-
-### build elements, assuming it's already checked out at $(ELE_CHECKOUT)
+build elements, assuming it's already checked out at $(ELE_CHECKOUT)
+```
 cd $(ELE_CHECKOUT)
 ant setup build
-
-### build WWP, assuming it's already checked out at $(WWP_CHECKOUT)
+```
+build WWP, assuming it's already checked out at $(WWP_CHECKOUT)
+```
 cd $(WWP_CHECKOUT)
-
-### symlink to the elements checkout
+```
+symlink to the elements checkout
+```
 ln -s $(ELE_CHECKOUT) elements
-
-### now ant has all files necessary
+```
+now ant has all files necessary
+```
 ant setup build
 cd $(WWP_CHECKOUT)/dc/wwp-dev
-
-### start the docker -dev container, properly linked to the elements source tree
+```
+start the docker -dev container, properly linked to the elements source tree
+```
 ELE_CHECKOUT=$(ELE_CHECKOUT) ROOT_URL="http://localhost:8001" docker-compose up -d
+```
 
-### rinse and repeat for WWW 
+rinse and repeat for WWW 
+```
 cd $(WWW_CHECKOUT)
 ln -s $(ELE_CHECKOUT) elements
 ant setup build
 cd $(WWW_CHECKOUT)/dc/web-dev
 ELE_CHECKOUT=$(ELE_CHECKOUT) ROOT_URL="http://localhost:8002" docker-compose up -d
-
+```
 
 ## Contributing
 We welcome contributions from the community! If you find a bug, have a feature request, or would like to contribute code, please create an issue or submit a pull request.
